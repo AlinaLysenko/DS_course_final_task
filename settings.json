@@ -1,0 +1,27 @@
+{
+    "general": {
+        "random_state": 42,
+        "status": "test",
+        "datetime_format": "%d.%m.%Y_%H.%M",
+        "data_dir": "data",
+        "raw_data_subdir": "raw",
+        "processed_data_subdir": "processed",
+        "models_dir": "models",
+        "models_subdirs": {
+            "log_reg": "Logistic Regression",
+            "svm" : "SVC",
+            "rand_forest": "Random Forest"
+        },
+        "vector_data": {
+            "count_stemmed": "count_vectors_stemmed",
+            "count_lemmatized": "count_vectors_lemmatized",
+            "tfidf_stemmed": "tfidf_vectors_stemmed",
+            "tfidf_lemmatized":"tfidf_vectors_lemmatized"
+        },
+        "results_dir": "results"
+    },
+    "data_load": {
+        "train_data_link": "https://static.cdn.epam.com/uploads/583f9e4a37492715074c531dbd5abad2/ds/final_project_train_dataset.zip",
+        "test_data_link": "https://static.cdn.epam.com/uploads/583f9e4a37492715074c531dbd5abad2/ds/final_project_test_dataset.zip"
+    }
+}
