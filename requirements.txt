@@ -5,3 +5,5 @@ requests
 unidecode
 nltk
 sparse
+joblib
+scipy

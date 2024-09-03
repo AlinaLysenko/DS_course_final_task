@@ -90,8 +90,8 @@ def save_results(prediction_table, metrics_table):
 
 def predict_and_evaluate_models():
     column_names = ['review', 'sentiment']
-    data_train = pd.read_csv(f'{RAW_DATA_DIR}/test.csv', names=column_names)
-    target = data_train['sentiment'].apply(lambda x: 1 if x == 'positive' else 0)
+    data_test = pd.read_csv(os.path.join(RAW_DATA_DIR, 'test.csv'), names=column_names)
+    target = data_test['sentiment'].apply(lambda x: 1 if x == 'positive' else 0)
     vector_data_content = load_data()
     results = []
     for model_code, model_name in models.items():
@@ -100,9 +100,9 @@ def predict_and_evaluate_models():
             model = load(get_model_path(model_name, data_key))
             predictions = model.predict(data_value)
             results.append(evaluate_model(predictions, target, model_name, data_key))
-            data_train[f'{model_code}_{data_key}_predictions'] = predictions
-            data_train[f'{model_code}_{data_key}_predictions'] = data_train[f'{model_code}_{data_key}_predictions'].apply(lambda x: 'positive' if x == 1 else 'negative')
-    save_results(data_train, results)
+            data_test[f'{model_code}_{data_key}_predictions'] = predictions
+            data_test[f'{model_code}_{data_key}_predictions'] = data_test[f'{model_code}_{data_key}_predictions'].apply(lambda x: 'positive' if x == 1 else 'negative')
+    save_results(data_test, results)
 
 
 def main():

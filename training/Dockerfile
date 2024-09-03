@@ -13,7 +13,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 #--no-cache-dir
 # Copy the training script and data into the container
-COPY data/ ./data
 COPY data_process/ ./data_process
 COPY training/ ./training
 

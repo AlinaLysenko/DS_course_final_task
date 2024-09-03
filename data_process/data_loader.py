@@ -58,6 +58,7 @@ vectorizers = {
     'tfidf_lemmatized': TfidfVectorizer(min_df=5, ngram_range=(1, 2))
 }
 
+common_words = set(conf['common_words'])
 
 def find_csv_in_directory(dir_path):
     for root, dirs, files in os.walk(dir_path):
@@ -84,7 +85,7 @@ def preprocess_text(text):
     text = text.translate(str.maketrans('', '', string.punctuation))
     text = unidecode(text)
     tokens = word_tokenize(text)
-    tokens = [token.lower() for token in tokens]
+    tokens = [token.lower() for token in tokens if token.isalpha() and token not in common_words]
     tokens = [token for token in tokens if token.isalpha()]
     stop_words = set(stopwords.words('english'))
     tokens = [token for token in tokens if token not in stop_words]
@@ -124,14 +125,13 @@ def load_and_process_data():
     column_names = ['review', 'sentiment']
 
     logger.info("Start Processing data")
-
-    data_train = pd.read_csv(f'{RAW_DATA_DIR}/train.csv', names=column_names)
+    data_train = pd.read_csv(os.path.join(RAW_DATA_DIR, 'train.csv'), names=column_names)
     data_train['processed_review_stemmed'], data_train['processed_review_lemmatized'] = zip(
         *data_train['review'].apply(preprocess_text))
     vectorize_and_save_data(data_train, "train")
     logger.info("Train data is processed and saved")
 
-    data_test = pd.read_csv(f'{RAW_DATA_DIR}/test.csv', names=column_names)
+    data_test = pd.read_csv(os.path.join(RAW_DATA_DIR, 'test.csv'), names=column_names)
     data_test['processed_review_stemmed'], data_test['processed_review_lemmatized'] = zip(
         *data_test['review'].apply(preprocess_text))
     vectorize_and_save_data(data_test, "test")

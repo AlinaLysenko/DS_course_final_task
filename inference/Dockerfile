@@ -17,6 +17,9 @@ COPY data/ ./data
 # Copy models folder to Docker
 COPY models/ ./models/
 
+# Copy models folder to Docker
+COPY results/ ./results/
+
 # Copy the code itself
 COPY inference ./inference
 
